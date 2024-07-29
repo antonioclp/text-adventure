@@ -2,7 +2,7 @@
   <img src="https://cdn-icons-png.flaticon.com/512/270/270006.png" width="200">
 </p>
 
-<h3 align="center">Y Social Media</h3>
+<h3 align="center">Text Adventure</h3>
 
 <div align="center">
 
