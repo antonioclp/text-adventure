@@ -8,7 +8,7 @@ const { timeout } = require("../utils/index");
 
 async function cap1(hero) {
   const villain = new Villain("Centipede", 50, "villain");
-  let started = true;
+
   console.log(`
     Hmmmm... que estranho, me sinto diferente, porque estou tão pequeno?
     `);
@@ -43,22 +43,22 @@ async function cap1(hero) {
   await timeout(5000);
   console.log(`
     <Recomendo utilizar a habilidade adquirida e caçar alguns espécimes para se alimentar.>
-      `);
+    `);
   await timeout(5000);
   console.log(`
     Certo!
-      `);
+    `);
 
   let act1 = true;
 
   while (act1) {
     await timeout(3000);
     console.log(`
-    <Mestre, com o que você deseja se alimentar? Estamos em uma planície e logo a frente um lago.>
+    <Mestre, o que deseja fazer? Estamos em uma planície e logo a frente um lago.>
       
     1- Se alimentar.
     2- Explorar.
-      `);
+    `);
     const choice = prompt(":   ");
 
     if (choice === "1") {
@@ -94,17 +94,19 @@ async function cap1(hero) {
     Como? Essa não...
     `);
   await timeout(3000);
-  do {
-    let livedBoss = true;
-    while (livedBoss) {
-      await timeout(2000);
-      console.log(`
+
+  // Começa a batalha
+  let villainAlive = true;
+
+  while (villainAlive && hero.life > 0) {
+    await timeout(2000);
+    console.log(`
        --- ${villain.name} ${villain.life}HP  ---
-        `);
+    `);
 
-      await timeout(2000);
+    await timeout(2000);
 
-      console.log(`
+    console.log(`
        --- Ataques ---
     
        1 - Ataque simples
@@ -112,51 +114,55 @@ async function cap1(hero) {
        --- Habilidades ---
     
        2 - Tongue Slash
-        `);
+    `);
 
-      const choice = prompt(":   ");
+    const choice = prompt(":");
 
-      if (choice === "1") {
-        // Ataque simples
-        const damage = hero.hit(hero.strenght);
-        await timeout(2000);
-        villain.hited(damage);
-      } else if (choice === "2") {
-        // Tongue Slash
-        const damage = hero.tongueSlash();
-        await timeout(2000);
-        villain.hited(damage);
-      }
-
-      // Verifica se o vilão foi derrotado
-      if (villain.life <= 0) {
-        livedBoss = false;
-        await timeout(2000);
-        console.log(`${villain.name} foi derrotado!`);
-      }
-
-      // Se o vilão tentar um ataque especial
-      if (villain.trySpecial()) {
-        const specialDamage = villain.special();
-        await timeout(2000);
-        hero.hited(specialDamage);
-      } else {
-        // Caso não consiga lançar um especial, use um ataque simples.
-        const villainDamage = villain.hit();
-        await timeout(2000);
-        hero.hited(villainDamage);
-      }
-
-      // Verifica se o herói foi derrotado
-      if (hero.life <= 0) {
-        started = false;
-        await timeout(2000);
-        console.log(`${hero.name} foi derrotado!`);
-      }
+    if (choice === "1") {
+      // Ataque simples
+      const damage = hero.hit(hero.strength);
+      await timeout(2000);
+      villain.hited(damage);
+    } else if (choice === "2") {
+      // Tongue Slash
+      const damage = hero.tongueSlash();
+      await timeout(2000);
+      villain.hited(damage);
+    } else {
+      // Ataque simples caso nenhuma.
+      const damage = hero.hit(hero.strength);
+      await timeout(2000);
+      villain.hited(damage);
     }
 
-    started = false;
-  } while (started);
+    // Verifica se o vilão foi derrotado
+    if (villain.life <= 0) {
+      villainAlive = false;
+      await timeout(2000);
+      console.log(`${villain.name} foi derrotado!`);
+      break;
+    }
+
+    // Se o vilão tentar um ataque especial
+    if (villain.trySpecial()) {
+      const specialDamage = villain.special();
+      await timeout(2000);
+      hero.hited(specialDamage);
+    } else {
+      // Caso não consiga lançar um especial, use um ataque simples.
+      const villainDamage = villain.hit();
+      await timeout(2000);
+      hero.hited(villainDamage);
+    }
+
+    // Verifica se o herói foi derrotado
+    if (hero.life <= 0) {
+      await timeout(2000);
+      console.log(`${hero.name} foi derrotado!`);
+      console.log(`Você finalizou o capítulo 1!`);
+      break;
+    }
+  }
 }
 
 module.exports = {
