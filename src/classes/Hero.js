@@ -1,5 +1,8 @@
 const Character = require("./Character");
 
+// Utils.
+const { timeout } = require("../utils/index");
+
 /**
  * Classe de herói.
  */
@@ -15,8 +18,9 @@ class Hero extends Character {
    * Métodos de status.
    */
   // Método para alimentação, recupera fome e vida.
-  eat(hungerIncreased, lifeHeal) {
+  async eat(hungerIncreased, lifeHeal) {
     if (this.hunger + hungerIncreased > 100) {
+      await timeout(2000);
       this.hunger = 100;
       console.log("> Sem fome.");
     } else {
@@ -24,12 +28,14 @@ class Hero extends Character {
     }
 
     if (this.life + lifeHeal > 100) {
+      await timeout(2000);
       this.life = 100;
       console.log("> Vida cheia.");
     } else {
       this.life += lifeHeal;
     }
 
+    await timeout(2000);
     console.log(
       `> Recuperados ${hungerIncreased} pontos de fome e ${lifeHeal} pontos de vida.`
     );
