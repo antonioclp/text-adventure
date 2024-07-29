@@ -32,12 +32,13 @@ class Character {
 
   // Método de ataque simples.
   // Math.floor() arredonda o número para baixo.
-  // Math.floor(Math.random() * (strenght * 0.2)) + 3 irá gerar um número de aleatório
+  // Math.floor(Math.random() * (strength * 0.2)) + 3 irá gerar um número de aleatório
   // escalando com a força e com um dano base de 3.
   // Exemplo: Força = 20, então, o dano variante será entre 3 e 7;
-  hit(strenght) {
-    if (this.type === "hero" && strenght) {
-      return Math.floor(Math.random() * (strenght * 0.2)) + 3;
+  hit(strength) {
+    if (this.type === "hero" && strength) {
+      console.log(strength + " FOr aca aiksai")
+      return Math.floor(Math.random() * (strength * 0.2)) + 3;
     }
 
     if (this.type === "villain") {

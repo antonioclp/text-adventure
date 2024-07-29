@@ -116,7 +116,7 @@ async function cap1(hero) {
        2 - Tongue Slash
     `);
 
-    const choice = prompt(":");
+    const choice = prompt(": ");
 
     if (choice === "1") {
       // Ataque simples

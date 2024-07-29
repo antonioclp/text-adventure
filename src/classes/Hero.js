@@ -7,9 +7,9 @@ const { timeout } = require("../utils/index");
  * Classe de herói.
  */
 class Hero extends Character {
-  constructor(name, life, strenght, hunger, money, type) {
+  constructor(name, life, strength, hunger, money, type) {
     super(name, life, type);
-    this.strenght = strenght;
+    this.strength = strength;
     this.hunger = hunger;
     this.money = money;
   }
@@ -53,7 +53,7 @@ class Hero extends Character {
       --- ${this.name} ---
       Vida: ${this.life}
       Fome: ${this.hunger}
-      Força: ${this.strenght}
+      Força: ${this.strength}
       Money: T$ ${this.money}
       `);
   }
@@ -63,11 +63,11 @@ class Hero extends Character {
    */
   // Método de ataque extra.
   // Math.floor() arredonda o número para baixo.
-  // Math.floor(Math.random() * (strenght * 0.3)) + 4 irá gerar um número de aleatório
+  // Math.floor(Math.random() * (strength * 0.3)) + 4 irá gerar um número de aleatório
   // escalando com a força e com um dano base de 4.
   // Exemplo: Força = 20, então, o dano variante será entre 4 e 10;
   tongueSlash() {
-    return Math.floor(Math.random() * (this.strenght * 0.3) + 4);
+    return Math.floor(Math.random() * (this.strength * 0.3) + 4);
   }
 }
 
