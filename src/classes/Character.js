@@ -37,7 +37,6 @@ class Character {
   // Exemplo: Força = 20, então, o dano variante será entre 3 e 7;
   hit(strength) {
     if (this.type === "hero" && strength) {
-      console.log(strength + " FOr aca aiksai")
       return Math.floor(Math.random() * (strength * 0.2)) + 3;
     }
 
